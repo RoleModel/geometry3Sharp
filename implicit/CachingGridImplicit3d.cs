@@ -37,6 +37,13 @@ namespace g3
             CellSize = cellSize;
         }
 
+        public CachingDenseGridTrilinearImplicit(MeshSignedDistanceGrid grid)
+        {
+            Grid = grid.Grid;
+            GridOrigin = grid.GridOrigin;
+            CellSize = grid.CellSize;
+        }
+
         public AxisAlignedBox3d Bounds()
 		{
 			return new AxisAlignedBox3d(
