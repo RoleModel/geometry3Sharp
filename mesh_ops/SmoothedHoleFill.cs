@@ -41,7 +41,6 @@ namespace gs
         /// <summary>If this is true, we don't modify any triangles outside hole (often results in lower-quality fill)</summary>
         public bool ConstrainToHoleInterior = false;
 
-
         /*
          *  ways to specify the hole we will fill
          *   (you really should use FillLoop unless you have a good reason not to)
@@ -101,6 +100,10 @@ namespace gs
                 FillVertices = new int[0];
                 return true;
             }
+
+            // sometimes the fill triangles are oriented incorrectly, and extrusion (the next step) will leave a patchwork mesh
+            MeshRepairOrientation orient = new MeshRepairOrientation(Mesh);
+            orient.OrientComponents();
 
             MeshFaceSelection tris = new MeshFaceSelection(Mesh);
             tris.Select(filler.NewTriangles);
